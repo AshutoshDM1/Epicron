@@ -20,7 +20,6 @@ interface MonitorsTableProps {
   crons: Cron[];
   isLoading?: boolean;
   error?: unknown;
-  onRequestUsername: () => void;
 }
 
 const statusColorClasses: Record<string, string> = {
@@ -30,7 +29,7 @@ const statusColorClasses: Record<string, string> = {
   ERROR: 'bg-orange-500',
 };
 
-const MonitorsTable = ({ crons, isLoading, error, onRequestUsername }: MonitorsTableProps) => {
+const MonitorsTable = ({ crons, isLoading, error }: MonitorsTableProps) => {
   const queryClient = useQueryClient();
 
   const deleteMutation = useMutation({
@@ -38,21 +37,9 @@ const MonitorsTable = ({ crons, isLoading, error, onRequestUsername }: MonitorsT
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['cron'] });
     },
-    onError: (error: any) => {
-      // Check if it's an authentication error
-      if (error.response?.status === 401 || error.response?.status === 403) {
-        onRequestUsername();
-      }
-    },
   });
 
   const handleDelete = (id: string) => {
-    // Check if username is set
-    const username = localStorage.getItem('username');
-    if (!username) {
-      onRequestUsername();
-      return;
-    }
     deleteMutation.mutate(id);
   };
 

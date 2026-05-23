@@ -6,12 +6,21 @@ const api = axios.create({
   baseURL: BASE_URL,
 });
 
-// Add username to all requests (if available)
+let getAuthToken: (() => Promise<string | null>) | null = null;
+
+export const setTokenFetcher = (fetcher: (() => Promise<string | null>) | null) => {
+  getAuthToken = fetcher;
+};
+
+// Add token to all requests
 api.interceptors.request.use(
-  (config) => {
-    const username = localStorage.getItem('username');
-    if (username) {
-      config.headers['x-username'] = username;
+  async (config) => {
+    // Standard Clerk JWT Authentication via Authorization header
+    if (getAuthToken) {
+      const token = await getAuthToken();
+      if (token) {
+        config.headers['Authorization'] = `Bearer ${token}`;
+      }
     }
     return config;
   },

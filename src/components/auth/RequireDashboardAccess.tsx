@@ -1,0 +1,57 @@
+import { ClerkLoaded, ClerkLoading, useUser } from '@clerk/react';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { DotmSquare8 } from '../ui/dotm-square-8';
+
+function PageLoader() {
+  return (
+    <div className="flex min-h-screen flex-col items-center justify-center bg-background select-none animate-in fade-in duration-300">
+      <div className="flex flex-col items-center justify-center gap-6">
+        <DotmSquare8
+          size={32}
+          dotSize={4}
+          speed={1.2}
+          bloom
+        />
+
+        {/* Minimalist Subtext */}
+        <div className="flex flex-col items-center gap-1.5">
+          <span className="text-[11px] font-bold tracking-[0.25em] text-foreground uppercase animate-pulse">
+            Epicron
+          </span>
+          <span className="text-[9px] tracking-wider text-muted-foreground uppercase opacity-70">
+            Connecting to service...
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function RequireDashboardAccess() {
+  const location = useLocation();
+  const { user, isLoaded, isSignedIn } = useUser();
+
+  // Important: only block when metadata explicitly says "false".
+  // Many users won't have this field set yet (undefined), and should still be allowed in.
+  const hasSignedUp = user?.publicMetadata?.has_signed_up;
+
+  return (
+    <>
+      <ClerkLoading>
+        <PageLoader />
+      </ClerkLoading>
+
+      <ClerkLoaded>
+        {!isSignedIn ? (
+          <Navigate to="/" replace state={{ from: location.pathname }} />
+        ) : !isLoaded || !user ? (
+          <PageLoader />
+        ) : hasSignedUp === false ? (
+          <Navigate to="/" replace state={{ from: location.pathname }} />
+        ) : (
+          <Outlet />
+        )}
+      </ClerkLoaded>
+    </>
+  );
+}

@@ -27,11 +27,7 @@ const formSchema = z.object({
   interval: z.enum(['1', '10', '20', '30']),
 });
 
-interface CreateCronFormProps {
-  onRequestUsername: () => void;
-}
-
-const CreateCronForm = ({ onRequestUsername }: CreateCronFormProps) => {
+const CreateCronForm = () => {
   const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
   const [interval, setInterval] = useState<'1' | '10' | '20' | '30'>('1');
@@ -48,29 +44,13 @@ const CreateCronForm = ({ onRequestUsername }: CreateCronFormProps) => {
       queryClient.invalidateQueries({ queryKey: ['cron'] });
     },
     onError: (error: any) => {
-      // Check if it's an authentication error
-      if (error.response?.status === 401 || error.response?.status === 403) {
-        setFormError('Authentication required. Please set your username.');
-        setOpen(false);
-        onRequestUsername();
-      } else {
-        setFormError(error.response?.data?.message || 'Failed to create monitor');
-      }
+      setFormError(error.response?.data?.message || 'Failed to create monitor');
     },
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setFormError(null);
-
-    // Check if username is set
-    const username = localStorage.getItem('username');
-    if (!username) {
-      setFormError('Please set your username first.');
-      setOpen(false);
-      onRequestUsername();
-      return;
-    }
 
     const result = formSchema.safeParse({ url, interval });
     if (!result.success) {

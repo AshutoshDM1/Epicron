@@ -19,10 +19,9 @@ interface MonitorsHeaderProps {
   downCount?: number;
   filterStatus: FilterStatus;
   onFilterChange: (filter: FilterStatus) => void;
-  onRequestUsername: () => void;
 }
 
-const MonitorsHeader = ({ total, downCount = 0, filterStatus, onFilterChange, onRequestUsername }: MonitorsHeaderProps) => {
+const MonitorsHeader = ({ total, downCount = 0, filterStatus, onFilterChange }: MonitorsHeaderProps) => {
   const filterLabel = {
     all: 'All',
     up: 'Up',
@@ -68,7 +67,7 @@ const MonitorsHeader = ({ total, downCount = 0, filterStatus, onFilterChange, on
             </DropdownMenuRadioGroup>
           </DropdownMenuContent>
         </DropdownMenu>
-        <CreateCronForm onRequestUsername={onRequestUsername} />
+        <CreateCronForm />
       </div>
     </div>
   );
