@@ -18,7 +18,7 @@ export default function Login() {
       <div className="w-full max-w-md flex flex-col items-center gap-6 z-10">
         <div className="flex items-center gap-2 mb-2 select-none">
           <Logo />
-          <span className="text-3xl font-bold tracking-wider mb-1">Epicron</span>
+          <span className="text-3xl font-bold tracking-wider mb-1">Mochi</span>
         </div>
         <SignIn routing="hash" />
       </div>

@@ -16,7 +16,7 @@ function PageLoader() {
         {/* Minimalist Subtext */}
         <div className="flex flex-col items-center gap-1.5">
           <span className="text-[11px] font-bold tracking-[0.25em] text-foreground uppercase animate-pulse">
-            Epicron
+            Mochi
           </span>
           <span className="text-[9px] tracking-wider text-muted-foreground uppercase opacity-70">
             Connecting to service...

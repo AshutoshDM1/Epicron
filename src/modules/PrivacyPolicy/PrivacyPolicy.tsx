@@ -29,7 +29,7 @@ export default function PrivacyPolicy() {
             Privacy Policy
           </h1>
           <p className="text-muted-foreground">
-            Last updated: May 22, 2026. Your privacy is paramount to us at Epicron.
+            Last updated: May 22, 2026. Your privacy is paramount to us at Mochi.
           </p>
         </div>
 
@@ -57,7 +57,7 @@ export default function PrivacyPolicy() {
               <h2 className="text-2xl font-bold tracking-tight">How We Use Information</h2>
             </div>
             <p className="text-muted-foreground leading-relaxed">
-              We use the information we collect to provide and maintain the Epicron monitoring service, verify your identity, send notifications when your services experience downtime, and to secure our application. We do not sell or share your personal data with third-party advertisers.
+              We use the information we collect to provide and maintain the Mochi monitoring service, verify your identity, send notifications when your services experience downtime, and to secure our application. We do not sell or share your personal data with third-party advertisers.
             </p>
           </section>
 
@@ -77,7 +77,7 @@ export default function PrivacyPolicy() {
 
         {/* Footer */}
         <footer className="mt-20 pt-8 border-t border-border/40 text-center text-sm text-muted-foreground">
-          <p>© 2026 Epicron. All rights reserved.</p>
+          <p>© 2026 Mochi. All rights reserved.</p>
         </footer>
       </div>
     </div>

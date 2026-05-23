@@ -2,11 +2,12 @@ import { Button } from '@/components/ui/button';
 import { Github, Star } from 'lucide-react';
 import Logo from '../logo/logo';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
-import { UserButton } from '@clerk/react';
+import { UserButton, useUser } from '@clerk/react';
 
 const Topbar = () => {
   const githubRepoUrl =
     import.meta.env.VITE_GITHUB_REPO_URL || 'https://github.com/AshutoshDM1/Elite-Cron';
+  const { user } = useUser();
 
   return (
     <>
@@ -15,7 +16,7 @@ const Topbar = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Logo />
-              <span className="text-2xl font-bold tracking-wider mb-1">Epicron</span>
+              <span className="text-2xl font-bold tracking-wider mb-1">Mochi</span>
             </div>
             <div className="flex items-center gap-3">
 
@@ -28,6 +29,7 @@ const Topbar = () => {
                     },
                   }}
                 />
+                <p className='font-light text-xs ml-2' >{user?.firstName} {user?.lastName}</p>
               </div>
 
 

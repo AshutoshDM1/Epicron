@@ -50,7 +50,7 @@ const UsernameDialog = ({ open, onUsernameSet }: UsernameDialogProps) => {
     <Dialog open={open} onOpenChange={() => {}}>
       <DialogContent className="sm:max-w-md" showCloseButton={false}>
         <DialogHeader>
-          <DialogTitle>Welcome to Epicron</DialogTitle>
+          <DialogTitle>Welcome to Mochi</DialogTitle>
           <DialogDescription>
             Please enter your username to continue. This will be used to authenticate your API
             requests.
