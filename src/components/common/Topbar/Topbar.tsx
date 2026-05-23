@@ -1,13 +1,16 @@
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Github, Star } from 'lucide-react';
+import { Github, Star, Key } from 'lucide-react';
 import Logo from '../logo/logo';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { UserButton, useUser } from '@clerk/react';
+import { McpKeyDialog } from '../McpKeyDialog';
 
 const Topbar = () => {
   const githubRepoUrl =
     import.meta.env.VITE_GITHUB_REPO_URL || 'https://github.com/AshutoshDM1/Elite-Cron';
   const { user } = useUser();
+  const [mcpOpen, setMcpOpen] = useState(false);
 
   return (
     <>
@@ -45,11 +48,23 @@ const Topbar = () => {
                   <span>Star on GitHub</span>
                 </Button>
               </a>
+
+              {/* MCP API Key Button */}
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setMcpOpen(true)}
+                className="hidden sm:inline-flex gap-2 hover:bg-accent cursor-pointer text-xs font-light"
+              >
+                <Key className="h-4 w-4 text-primary" />
+                <span>MCP API Key</span>
+              </Button>
             </div>
           </div>
         </div>
       </header>
       <ThemeToggle />
+      <McpKeyDialog open={mcpOpen} onOpenChange={setMcpOpen} />
     </>
   );
 };
