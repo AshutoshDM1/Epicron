@@ -1,4 +1,5 @@
-import { ClerkLoaded, ClerkLoading, useUser } from '@clerk/react';
+import { useState, useEffect } from 'react';
+import { useUser } from '@clerk/react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { DotmSquare8 } from '../ui/dotm-square-8';
 
@@ -30,28 +31,35 @@ function PageLoader() {
 export default function RequireDashboardAccess() {
   const location = useLocation();
   const { user, isLoaded, isSignedIn } = useUser();
+  const [minLoaderElapsed, setMinLoaderElapsed] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMinLoaderElapsed(true);
+    }, 1700);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   // Important: only block when metadata explicitly says "false".
   // Many users won't have this field set yet (undefined), and should still be allowed in.
   const hasSignedUp = user?.publicMetadata?.has_signed_up;
 
-  return (
-    <>
-      <ClerkLoading>
-        <PageLoader />
-      </ClerkLoading>
+  // Render loader if Clerk has not loaded or the minimum 1.5s time has not elapsed
+  const isLoading = !isLoaded || !minLoaderElapsed;
 
-      <ClerkLoaded>
-        {!isSignedIn ? (
-          <Navigate to="/" replace state={{ from: location.pathname }} />
-        ) : !isLoaded || !user ? (
-          <PageLoader />
-        ) : hasSignedUp === false ? (
-          <Navigate to="/" replace state={{ from: location.pathname }} />
-        ) : (
-          <Outlet />
-        )}
-      </ClerkLoaded>
-    </>
-  );
+  if (isLoading) {
+    return <PageLoader />;
+  }
+
+  // Once loading completes, evaluate user authentication:
+  if (!isSignedIn) {
+    return <Navigate to="/" replace state={{ from: location.pathname }} />;
+  }
+
+  if (hasSignedUp === false) {
+    return <Navigate to="/" replace state={{ from: location.pathname }} />;
+  }
+
+  return <Outlet />;
 }
