@@ -102,8 +102,22 @@ export const McpKeyDialog = ({ open, onOpenChange }: McpKeyDialogProps) => {
                 />
                 {error && <p className="text-xs text-destructive font-medium">{error}</p>}
                 <p className="text-[11px] text-muted-foreground leading-normal">
-                  Give this key a descriptive name to track where it is being used (e.g. "Work Laptop").
+                  Give this key a descriptive name to track where it is being used (e.g. Work Laptop).
                 </p>
+              </div>
+
+              {/* CLI Installation Instructions (No Emoji) */}
+              <div className="rounded-xl border bg-muted/20 p-4 space-y-2 text-xs leading-normal">
+                <div className="font-bold tracking-wider uppercase text-[10px] text-primary">CLI Installation Guide</div>
+                <p className="text-muted-foreground font-medium">
+                  Once generated, you can automatically configure your IDE settings by installing and running our official CLI toolkit:
+                </p>
+                <div className="space-y-1 font-mono text-[11px] bg-background border p-2.5 rounded-lg text-foreground">
+                  <div className="text-muted-foreground"># Install the CLI package globally</div>
+                  <div>npm i -g mochi-mcp-kit</div>
+                  <div className="text-muted-foreground mt-2"># Log in and update your IDE configuration</div>
+                  <div>mochi-mcp login</div>
+                </div>
               </div>
             </div>
             <DialogFooter className="pt-2">
@@ -120,7 +134,7 @@ export const McpKeyDialog = ({ open, onOpenChange }: McpKeyDialogProps) => {
             </DialogFooter>
           </form>
         ) : (
-          /* Step 2: Display Generated Key */
+          /* Step 2: Display Generated Key & Instructions */
           <div className="space-y-5 py-4">
             <div className="space-y-2">
               <Label className="text-sm font-semibold">Your New API Key</Label>
@@ -141,13 +155,27 @@ export const McpKeyDialog = ({ open, onOpenChange }: McpKeyDialogProps) => {
               </div>
             </div>
 
-            {/* Warn Block */}
-            <div className="flex items-start gap-3 p-3.5 rounded-xl border border-amber-500/30 bg-amber-500/5 text-amber-600 dark:text-amber-500 text-xs leading-normal animate-pulse">
+            {/* Quickstart steps with generated key (No Emoji) */}
+            <div className="rounded-xl border bg-muted/20 p-4 space-y-2 text-xs leading-normal">
+              <div className="font-bold tracking-wider uppercase text-[10px] text-primary">How to Use Your Key</div>
+              <p className="text-muted-foreground font-medium">
+                Open your terminal and run the setup commands. The wizard will verify this key and configure your IDEs:
+              </p>
+              <div className="space-y-1 font-mono text-[11px] bg-background border p-2.5 rounded-lg text-foreground">
+                <div className="text-muted-foreground"># Install globally</div>
+                <div>npm i -g mochi-mcp-kit</div>
+                <div className="text-muted-foreground mt-2"># Connect and configure Cursor / Antigravity</div>
+                <div>mochi-mcp login</div>
+              </div>
+            </div>
+
+            {/* Warn Block (No Emoji) */}
+            <div className="flex items-start gap-3 p-3.5 rounded-xl border border-amber-500/30 bg-amber-500/5 text-amber-600 dark:text-amber-500 text-xs leading-normal">
               <AlertTriangle className="h-5 w-5 shrink-0" />
               <div className="space-y-1">
                 <span className="font-bold uppercase tracking-wider text-[10px]">Security Warning</span>
                 <p className="font-medium opacity-90">
-                  Make sure to copy this key now! For security reasons, you will never be able to view it again.
+                  Make sure to copy this key now. For security reasons, you will never be able to view it again.
                 </p>
               </div>
             </div>

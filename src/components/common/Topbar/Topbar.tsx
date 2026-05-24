@@ -57,7 +57,7 @@ const Topbar = () => {
                 className="hidden sm:inline-flex gap-2 hover:bg-accent cursor-pointer text-xs font-light"
               >
                 <Key className="h-4 w-4 text-primary" />
-                <span>MCP API Key</span>
+                <span>Mochi mcp</span>
               </Button>
             </div>
           </div>
